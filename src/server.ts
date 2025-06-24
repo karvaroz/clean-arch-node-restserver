@@ -3,6 +3,8 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
+import { UserRouter } from "./user/user.router";
+
 dotenv.config();
 
 class Server {
@@ -15,7 +17,7 @@ class Server {
         this.app.use(morgan('dev'));
         this.app.use(cors());
 
-        // this.app.use("/api", this.routers());
+        this.app.use("/api", this.routers());
 
         this.listen()
 
@@ -23,7 +25,7 @@ class Server {
 
     routers(): Array<express.Router> {
         return [
-
+            new UserRouter().router
         ];
     }
 
