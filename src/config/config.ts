@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 
-import { ConnectionOptions } from "typeorm";
+import { DataSourceOptions } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 export abstract class ConfigServer {
@@ -33,9 +33,10 @@ export abstract class ConfigServer {
     return "." + arrEnv.join(".");
   }
 
-  public get TypeORMConfig(): ConnectionOptions {
+  public get TypeORMConfig(): DataSourceOptions {
     return {
       type: "mysql",
+      driver: require("mysql2"),
       host: this.getEnvironment("DB_HOST"),
       port: this.getNumberEnv("DB_PORT"),
       username: this.getEnvironment("DB_USER"),
@@ -47,8 +48,6 @@ export abstract class ConfigServer {
       migrationsRun: true,
       logging: false,
       // namingStrategy: new SnakeNamingStrategy(),
-    }
+    };
   }
-
-
 }
