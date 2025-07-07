@@ -29,8 +29,7 @@ services:
       - DB_PASSWORD=secret
       - DB_DATABASE=mydb
     depends_on:
-      db:
-        condition: service_healthy
+      - db
 
 volumes:
   mysql_data:
