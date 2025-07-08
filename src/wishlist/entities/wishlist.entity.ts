@@ -1,21 +1,31 @@
-import { CustomerEntity } from "user/entities/customer.entity";
+import { CustomerEntity } from "../../user/entities/customer.entity";
 import { BaseEntity } from "../../config/base.entity";
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { WishlistItemEntity } from "./wishlist_item.entity";
 
-@Entity({ name: "wishlist" })
+@Entity({ name: "wishlists" })
 export class WishlistEntity extends BaseEntity {
-  @ManyToOne(() => CustomerEntity, (customer) => customer.orders)
-  customer!: CustomerEntity;
+	@ManyToOne(
+		() => CustomerEntity,
+		(customer) => customer.wishlists,
+	)
+	customer!: CustomerEntity;
 
-  @Column({ type: "varchar", length: 255 })
-  name!: string;
+	@OneToMany(
+		() => WishlistItemEntity,
+		(item) => item.wishlist,
+	)
+	items!: WishlistItemEntity[];
 
-  @Column({ type: "text", nullable: true })
-  description?: string;
+	@Column({ type: "varchar", length: 255 })
+	name!: string;
 
-  @Column({ type: "boolean", default: false })
-  isPublic!: boolean;
+	@Column({ type: "text", nullable: true })
+	description?: string;
 
-  @Column({ type: "boolean", default: false })
-  isDefault!: boolean;
+	@Column({ type: "boolean", default: false })
+	isPublic!: boolean;
+
+	@Column({ type: "boolean", default: false })
+	isDefault!: boolean;
 }

@@ -1,15 +1,16 @@
-import { CustomerEntity } from "user/entities/customer.entity";
 import { BaseEntity } from "../../config/base.entity";
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Entity, ManyToOne } from "typeorm";
+import { WishlistEntity } from "./wishlist.entity";
+import { ProductEntity } from "product/entities/product.entity";
 
-@Entity({ name: "wishlist_item" })
+@Entity({ name: "wishlist_items" })
 export class WishlistItemEntity extends BaseEntity {
-  @ManyToOne(() => CustomerEntity, (customer) => customer.orders)
-  customer!: CustomerEntity;
+	@ManyToOne(
+		() => WishlistEntity,
+		(wishlist) => wishlist.items,
+	)
+	wishlist!: WishlistEntity;
 
-  @Column({ type: "varchar", length: 255 })
-  wishlistId!: string; // WishlistEntity
-
-  @Column({ type: "varchar", length: 255 })
-  productId!: string; // ProductEntity
+	@ManyToOne(() => ProductEntity)
+	product!: ProductEntity;
 }

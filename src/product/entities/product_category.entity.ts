@@ -4,12 +4,15 @@ import { ProductEntity } from "./product.entity";
 
 @Entity({ name: "product_categories" })
 export class ProductCategoryEntity extends BaseEntity {
-  @Column({ type: "varchar", length: 100 })
-  name!: string;
+	@Column({ type: "varchar", length: 100 })
+	name!: string;
 
-  @Column({ type: "text", nullable: true })
-  description?: string;
+	@Column({ type: "text", nullable: true })
+	description?: string;
 
-  @OneToMany(() => ProductEntity, (product) => product.category)
-  products!: ProductEntity[];
+	@OneToMany(
+		() => ProductEntity,
+		(product) => product.category,
+	)
+	products!: ProductEntity[];
 }

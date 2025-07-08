@@ -1,25 +1,25 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "CommonJS",
-    "lib": ["ES2022"],
-    "rootDir": "src",
-    "outDir": "dist",
-    "strict": true,
-    "strictPropertyInitialization": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@utils/*": ["utils/*"],
-      "@config/*": ["config/*"],
-      "@controllers/*": ["controllers/*"]
-    }
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "mysql"]
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "CommonJS",
+		"lib": ["ES2022"],
+		"rootDir": "src",
+		"outDir": "dist",
+		"strict": true,
+		"strictPropertyInitialization": true,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"baseUrl": "./src",
+		"paths": {
+			"@utils/*": ["utils/*"],
+			"@config/*": ["config/*"],
+			"@controllers/*": ["controllers/*"]
+		}
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "dist", "mysql"]
 }

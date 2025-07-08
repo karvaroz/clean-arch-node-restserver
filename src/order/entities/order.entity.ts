@@ -1,47 +1,61 @@
-import { Column, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, Index, ManyToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
-import { OrderStatus } from "order/dto/order.dto";
-import { CustomerEntity } from "user/entities/customer.entity";
+import { OrderStatus } from "../dto/order.dto";
+import { CustomerEntity } from "../../user/entities/customer.entity";
 import { OrderItemEntity } from "./order_item.entity";
-import { PaymentEntity } from "payment/entities/payment.entity";
+import { PaymentEntity } from "../../payment/entities/payment.entity";
 import { ShippingAddressEntity } from "./shipping_address.entity";
 import { ShippingMethodEntity } from "./shipping_method.entity";
 
+@Entity({ name: "orders" })
 export class OrderEntity extends BaseEntity {
-  @Column({ type: "datetime", length: 255 })
-  orderDate!: Date;
+	@Column({
+		type: "timestamp with time zone",
+		default: () => "CURRENT_TIMESTAMP",
+	})
+	@Index()
+	orderDate!: Date;
 
-  @Column({ type: "decimal", precision: 12, scale: 2 })
-  subtotal!: number;
+	@Column({ type: "decimal", precision: 12, scale: 2 })
+	subtotal!: number;
 
-  @Column({ type: "decimal", precision: 12, scale: 2 })
-  tax!: number;
+	@Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
+	tax!: number;
 
-  @Column({ type: "decimal", precision: 12, scale: 2 })
-  shippingCost!: number;
+	@Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
+	shippingCost!: number;
 
-  @Column({ type: "decimal", precision: 12, scale: 2 })
-  total!: number;
+	@Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
+	total!: number;
 
-  @Column({
-    type: "enum",
-    enum: OrderStatus,
-    default: OrderStatus.PENDIND,
-  })
-  status!: OrderStatus;
+	@Column({
+		type: "enum",
+		enum: OrderStatus,
+		default: OrderStatus.PENDIND,
+	})
+	status!: OrderStatus;
 
-  @ManyToOne(() => CustomerEntity, (customer) => customer.orders)
-  customer!: CustomerEntity;
+	@ManyToOne(
+		() => CustomerEntity,
+		(customer) => customer.orders,
+	)
+	customer!: CustomerEntity;
 
-  @OneToMany(() => OrderItemEntity, (item) => item.order)
-  items!: OrderItemEntity[];
+	@OneToMany(
+		() => OrderItemEntity,
+		(item) => item.order,
+	)
+	items!: OrderItemEntity[];
 
-  @OneToMany(() => PaymentEntity, (payment) => payment.order)
-  payments!: PaymentEntity[];
+	@OneToMany(
+		() => PaymentEntity,
+		(payment) => payment.order,
+	)
+	payments!: PaymentEntity[];
 
-  @ManyToOne(() => ShippingAddressEntity)
-  shippingAddress!: ShippingAddressEntity;
+	@ManyToOne(() => ShippingAddressEntity)
+	shippingAddress!: ShippingAddressEntity;
 
-  @ManyToOne(() => ShippingMethodEntity)
-  shippingMethod!: ShippingMethodEntity;
+	@ManyToOne(() => ShippingMethodEntity)
+	shippingMethod!: ShippingMethodEntity;
 }
