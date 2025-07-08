@@ -36,7 +36,7 @@ export class OrderEntity extends BaseEntity {
   @OneToMany(() => OrderItemEntity, (item) => item.order)
   items!: OrderItemEntity[];
 
-  @OneToMany(() => PaymentEntity, (payment) => payment.orderId)
+  @OneToMany(() => PaymentEntity, (payment) => payment.order)
   payments!: PaymentEntity[];
 
   @ManyToOne(() => ShippingAddressEntity)
