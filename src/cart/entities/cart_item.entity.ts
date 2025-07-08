@@ -1,5 +1,14 @@
 import { BaseEntity } from "../../config/base.entity";
-import { Entity } from "typeorm";
+import { Column, Entity } from "typeorm";
 
 @Entity({ name: "cart_items" })
-export class CartItemEntity extends BaseEntity {}
+export class CartItemEntity extends BaseEntity {
+  @Column()
+  cartId!: string; // CartEntity
+
+  @Column()
+  productId!: string; // ProductEntity
+
+  @Column()
+  quantity!: number;
+}
