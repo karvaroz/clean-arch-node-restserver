@@ -10,15 +10,21 @@ export abstract class BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @CreateDateColumn({
+    type: "timestamp with time zone",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   createdAt!: Date;
 
-  @UpdateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @UpdateDateColumn({
+    type: "timestamp with time zone",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   updatedAt!: Date;
 
   @Column({ type: "boolean", default: false })
   isDeleted: boolean = false;
 
-  @DeleteDateColumn({ type: "timestamp", nullable: true })
-  deleteAt?: Date | null;
+  @DeleteDateColumn({ type: "timestamp with time zone", nullable: true })
+  deletedAt?: Date | null;
 }
