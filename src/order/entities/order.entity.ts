@@ -9,53 +9,43 @@ import { ShippingMethodEntity } from "./shipping_method.entity";
 
 @Entity({ name: "orders" })
 export class OrderEntity extends BaseEntity {
-	@Column({
-		type: "timestamp with time zone",
-		default: () => "CURRENT_TIMESTAMP",
-	})
-	@Index()
-	orderDate!: Date;
+  @Column({
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  orderDate!: Date;
 
-	@Column({ type: "decimal", precision: 12, scale: 2 })
-	subtotal!: number;
+  @Column({ type: "decimal", precision: 12, scale: 2 })
+  subtotal!: number;
 
-	@Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
-	tax!: number;
+  @Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
+  tax!: number;
 
-	@Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
-	shippingCost!: number;
+  @Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
+  shippingCost!: number;
 
-	@Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
-	total!: number;
+  @Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
+  total!: number;
 
-	@Column({
-		type: "enum",
-		enum: OrderStatus,
-		default: OrderStatus.PENDIND,
-	})
-	status!: OrderStatus;
+  @Column({
+    type: "enum",
+    enum: OrderStatus,
+    default: OrderStatus.PENDIND,
+  })
+  status!: OrderStatus;
 
-	@ManyToOne(
-		() => CustomerEntity,
-		(customer) => customer.orders,
-	)
-	customer!: CustomerEntity;
+  @ManyToOne(() => CustomerEntity, (customer) => customer.orders)
+  customer!: CustomerEntity;
 
-	@OneToMany(
-		() => OrderItemEntity,
-		(item) => item.order,
-	)
-	items!: OrderItemEntity[];
+  @OneToMany(() => OrderItemEntity, (item) => item.order)
+  items!: OrderItemEntity[];
 
-	@OneToMany(
-		() => PaymentEntity,
-		(payment) => payment.order,
-	)
-	payments!: PaymentEntity[];
+  @OneToMany(() => PaymentEntity, (payment) => payment.order)
+  payments!: PaymentEntity[];
 
-	@ManyToOne(() => ShippingAddressEntity)
-	shippingAddress!: ShippingAddressEntity;
+  @ManyToOne(() => ShippingAddressEntity)
+  shippingAddress!: ShippingAddressEntity;
 
-	@ManyToOne(() => ShippingMethodEntity)
-	shippingMethod!: ShippingMethodEntity;
+  @ManyToOne(() => ShippingMethodEntity)
+  shippingMethod!: ShippingMethodEntity;
 }
