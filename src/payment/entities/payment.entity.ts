@@ -1,22 +1,31 @@
+import { OrderEntity } from "order/entities/order.entity";
 import { BaseEntity } from "../../config/base.entity";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
+import { PaymentMethodEntity } from "./payment_method.entity";
 
 @Entity({ name: "payments" })
 export class PaymentEntity extends BaseEntity {
-  orderId!: string; // OrderEntity
+  @ManyToOne(() => OrderEntity, (order) => order.payments)
+  order!: OrderEntity;
 
-  @Column()
+  @ManyToOne(() => PaymentMethodEntity)
+  paymentMethod!: PaymentMethodEntity;
+
+  @Column({ type: "decimal", precision: 12, scale: 2 })
   amount!: number;
+
+  @Column({ type: "varchar", length: 50 })
+  currency!: string;
 
   @Column()
   paymentDate!: Date;
 
-  @Column()
-  paymentMethod!: string; // PaymentMethodEntity
+  @Column({ type: "varchar", length: 100, nullable: true })
+  transactionId!: string | null;
 
-  @Column()
-  transaction_id!: string;
+  @Column({ type: "jsonb", nullable: true })
+  processorResponse: any;
 
-  @Column()
-  status!: string;
+  @Column({ type: "varchar", length: 50 })
+  status!: "pending" | "completed" | "failed" | "refunded";
 }
