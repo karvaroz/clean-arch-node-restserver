@@ -1,9 +1,9 @@
 import { CustomerEntity } from "user/entities/customer.entity";
 import { BaseEntity } from "../../config/base.entity";
-import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { Entity, ManyToOne, OneToMany } from "typeorm";
 import { CartItemEntity } from "./cart_item.entity";
 
-@Entity({ name: "cart" })
+@Entity({ name: "carts" })
 export class CartEntity extends BaseEntity {
   @ManyToOne(() => CustomerEntity, (customer) => customer.orders)
   customer!: CustomerEntity;
