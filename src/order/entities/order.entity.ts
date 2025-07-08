@@ -1,6 +1,6 @@
 import { Column, ManyToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
-import { OrderType } from "order/dto/order.dto";
+import { OrderStatus } from "order/dto/order.dto";
 import { CustomerEntity } from "user/entities/customer.entity";
 import { OrderItemEntity } from "./order_item.entity";
 import { PaymentEntity } from "payment/entities/payment.entity";
@@ -25,10 +25,10 @@ export class OrderEntity extends BaseEntity {
 
   @Column({
     type: "enum",
-    enum: OrderType,
-    default: OrderType.PROCESSING,
+    enum: OrderStatus,
+    default: OrderStatus.PENDIND,
   })
-  status!: OrderType;
+  status!: OrderStatus;
 
   @ManyToOne(() => CustomerEntity, (customer) => customer.orders)
   customer!: CustomerEntity;
