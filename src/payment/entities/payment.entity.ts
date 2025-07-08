@@ -2,6 +2,7 @@ import { OrderEntity } from "order/entities/order.entity";
 import { BaseEntity } from "../../config/base.entity";
 import { Column, Entity, ManyToOne } from "typeorm";
 import { PaymentMethodEntity } from "./payment_method.entity";
+import { PaymentStatus } from "payment/dto/payment.dto";
 
 @Entity({ name: "payments" })
 export class PaymentEntity extends BaseEntity {
@@ -26,6 +27,10 @@ export class PaymentEntity extends BaseEntity {
   @Column({ type: "jsonb", nullable: true })
   processorResponse: any;
 
-  @Column({ type: "varchar", length: 50 })
-  status!: "pending" | "completed" | "failed" | "refunded";
+  @Column({
+    type: "enum",
+    enum: PaymentStatus,
+    default: PaymentStatus.PENDING,
+  })
+  status!: PaymentStatus;
 }
