@@ -1,4 +1,4 @@
-import { Column } from "typeorm";
+import { Column, Entity } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 
 export enum UserRole {
@@ -7,8 +7,9 @@ export enum UserRole {
   CUSTOMER = "customer",
 }
 
+@Entity({ name: "users" })
 export class UserEntity extends BaseEntity {
-  @Column({ type: "string", length: 100, unique: true })
+  @Column({ type: "varchar", length: 150, unique: true })
   email!: string;
 
   @Column({ type: "varchar", length: 255 })
@@ -19,6 +20,9 @@ export class UserEntity extends BaseEntity {
 
   @Column({ type: "varchar", length: 50 })
   lastName?: string;
+
+  @Column({ type: "varchar", length: 15, nullable: true })
+  phoneNumber?: string;
 
   @Column({ type: "boolean", default: true })
   isActive!: boolean;
