@@ -1,10 +1,11 @@
+import { CustomerEntity } from "user/entities/customer.entity";
 import { BaseEntity } from "../../config/base.entity";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 
 @Entity({ name: "shipping_addresses" })
 export class ShippingAddressEntity extends BaseEntity {
-  @Column({ type: "varchar", length: 255 })
-  customerId!: string; // customerEntity
+  @ManyToOne(() => CustomerEntity, (customer) => customer.orders)
+  customer!: CustomerEntity;
 
   @Column({ type: "varchar", length: 255 })
   recipientName!: string;
