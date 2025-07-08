@@ -6,17 +6,17 @@ import { UserRole } from "user/dto/user.dto";
 
 @Entity({ name: "users" })
 export class UserEntity extends BaseEntity {
-  @Column({ type: "varchar", length: 150, unique: true })
+  @Column({ type: "varchar", length: 100, unique: true })
   email!: string;
 
   @Column({ type: "varchar", length: 255 })
-  password!: string;
+  passwordHash!: string;
 
   @Column({ type: "boolean", default: true })
   isActive!: boolean;
 
   @Column({ type: "boolean", default: false })
-  isEmailVerified!: boolean;
+  emailVerified!: boolean;
 
   @Column({ type: "enum", enum: UserRole, nullable: false })
   role!: UserRole;
