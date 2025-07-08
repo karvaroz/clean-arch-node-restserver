@@ -1,13 +1,15 @@
 import { BaseEntity } from "../../config/base.entity";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
+import { CartEntity } from "./cart.entity";
+import { ProductEntity } from "product/entities/product.entity";
 
 @Entity({ name: "cart_items" })
 export class CartItemEntity extends BaseEntity {
-  @Column()
-  cartId!: string; // CartEntity
+  @ManyToOne(() => CartEntity, (cart) => cart.items)
+  cart!: CartEntity;
 
-  @Column()
-  productId!: string; // ProductEntity
+  @ManyToOne(() => ProductEntity)
+  product!: ProductEntity;
 
   @Column()
   quantity!: number;
