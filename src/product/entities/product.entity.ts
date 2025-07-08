@@ -9,6 +9,9 @@ import {
 } from "typeorm";
 
 import { BaseEntity } from "../../config/base.entity";
+import { SellerEntity } from "user/entities/seller.entity";
+import { ProductCategoryEntity } from "./product_category.entity";
+import { ProductImageEntity } from "./product_image.entity";
 
 @Entity("products")
 export class ProductEntity extends BaseEntity {
@@ -36,22 +39,12 @@ export class ProductEntity extends BaseEntity {
   @Column({ type: "boolean", default: true })
   isActive!: boolean;
 
-  // Relationships
-  // @ManyToOne(() => SellerEntity, (seller) => seller.products)
-  // seller: SellerEntity;
+  @ManyToOne(() => SellerEntity, (seller) => seller.products)
+  seller!: SellerEntity;
 
-  // @ManyToOne(() => ProductCategoryEntity, (category) => category.products)
-  // category: ProductCategoryEntity;
+  @ManyToOne(() => ProductCategoryEntity, (category) => category.products)
+  category!: ProductCategoryEntity;
 
-  // @OneToMany(() => ProductImageEntity, (image) => image.product)
-  // images: ProductImageEntity[];
-
-  // @OneToMany(() => ProductVariationEntity, (variation) => variation.product)
-  // variations: ProductVariationEntity[];
-
-  // @OneToMany(() => ProductSpecificationEntity, (spec) => spec.product)
-  // specifications: ProductSpecificationEntity[];
-
-  // @OneToMany(() => InventoryLogEntity, (log) => log.product)
-  // inventoryLogs: InventoryLogEntity[];
+  @OneToMany(() => ProductImageEntity, (image) => image.product)
+  images!: ProductImageEntity[];
 }
