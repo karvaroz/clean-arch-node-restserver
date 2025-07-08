@@ -4,8 +4,8 @@ import { OrderType } from "order/dto/order.dto";
 import { CustomerEntity } from "user/entities/customer.entity";
 
 export class OrderEntity extends BaseEntity {
-  @Column({ type: "varchar", length: 255 })
-  customerId!: string; // customerEntity
+  @ManyToOne(() => CustomerEntity, (customer) => customer.orders)
+  customer!: CustomerEntity;
 
   @Column({ type: "datetime", length: 255 })
   orderDate!: Date;
