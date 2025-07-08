@@ -11,6 +11,6 @@ export class CartItemEntity extends BaseEntity {
   @ManyToOne(() => ProductEntity)
   product!: ProductEntity;
 
-  @Column()
+  @Column({ type: "int", unsigned: true })
   quantity!: number;
 }
