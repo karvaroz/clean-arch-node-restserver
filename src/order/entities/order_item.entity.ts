@@ -11,12 +11,12 @@ export class OrderItemEntity extends BaseEntity {
   @ManyToOne(() => OrderEntity, (order) => order.items)
   order!: OrderEntity;
 
-  @Column({ type: "int" })
+  @Column({ type: "int", unsigned: true })
   quantity!: number;
 
-  @Column({ type: "decimal", precision: 12, scale: 2 })
+  @Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
   unitPrice!: number;
 
-  @Column({ type: "decimal", precision: 12, scale: 2 })
+  @Column({ type: "decimal", precision: 12, scale: 2, unsigned: true })
   totalPrice!: number;
 }
