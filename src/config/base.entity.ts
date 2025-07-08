@@ -1,30 +1,31 @@
 import {
-	PrimaryGeneratedColumn,
-	CreateDateColumn,
-	UpdateDateColumn,
-	Column,
-	DeleteDateColumn,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Column,
+  DeleteDateColumn,
 } from "typeorm";
 
 export abstract class BaseEntity {
-	@PrimaryGeneratedColumn("uuid")
-	id!: string;
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
-	@CreateDateColumn({
-		type: "timestamp with time zone",
-		default: () => "CURRENT_TIMESTAMP",
-	})
-	createdAt!: Date;
+  @CreateDateColumn({
+    name: "created_at",
+    type: "timestamp",
+  })
+  createdAt!: Date;
 
-	@UpdateDateColumn({
-		type: "timestamp with time zone",
-		default: () => "CURRENT_TIMESTAMP",
-	})
-	updatedAt!: Date;
+  @UpdateDateColumn({
+    name: "updated_at",
+    type: "timestamp",
+    nullable: true,
+  })
+  updatedAt?: Date;
 
-	@Column({ type: "boolean", default: false })
-	isDeleted: boolean = false;
+  @Column({ type: "boolean", default: false })
+  isDeleted?: boolean;
 
-	@DeleteDateColumn({ type: "timestamp with time zone", nullable: true })
-	deletedAt?: Date | null;
+  @DeleteDateColumn({ name: "delete_at", type: "timestamp", nullable: true })
+  deletedAt?: Date;
 }
