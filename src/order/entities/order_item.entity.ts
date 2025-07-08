@@ -1,21 +1,22 @@
-import { OrderType } from "order/dto/order.dto";
 import { BaseEntity } from "../../config/base.entity";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
+import { OrderEntity } from "./order.entity";
+import { ProductEntity } from "product/entities/product.entity";
 
 @Entity({ name: "order_item" })
 export class OrderItemEntity extends BaseEntity {
-  @Column({ type: "varchar", length: 255 })
-  productId!: string; // ProductEntity
+  @ManyToOne(() => ProductEntity)
+  product!: ProductEntity;
 
-  @Column({ type: "varchar", length: 255 })
-  orderId!: string; // OrderEntity
+  @ManyToOne(() => OrderEntity, (order) => order.items)
+  order!: OrderEntity;
 
-  @Column({ type: "int", length: 255 })
+  @Column({ type: "int" })
   quantity!: number;
 
   @Column({ type: "decimal", precision: 12, scale: 2 })
-  price!: number;
+  unitPrice!: number;
 
-  @Column({ type: "decimal", precision: 12, scale: 2, default: 0 })
-  subtotal!: number;
+  @Column({ type: "decimal", precision: 12, scale: 2 })
+  totalPrice!: number;
 }
