@@ -1,12 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from "typeorm";
+import { Entity, Column, ManyToOne, OneToMany } from "typeorm";
 
 import { BaseEntity } from "../../config/base.entity";
 import { SellerEntity } from "user/entities/seller.entity";
